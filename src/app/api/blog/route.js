@@ -11,11 +11,14 @@ const loadDB = async () => {
 
 loadDB();
 
+// API endpoints to get all blogs
 export async function GET(req){
 
-    return NextResponse.json({msg: "API Working"})
+    const blogs = await blogModel.find({});
+    return NextResponse.json({blogs})
 }
 
+// API End point for uploading Blogs
 export async function POST(req){
     const formData = await req.formData();
     const createdAt = Date.now();
