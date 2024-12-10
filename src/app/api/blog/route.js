@@ -1,8 +1,8 @@
 import { connectDB } from "@/lib/config/db"
 import blogModel from "@/lib/models/blogModel";
-import { write } from "fs";
 const { NextResponse } = require("next/server")
 import {writeFile} from 'fs/promises'
+const fs = require('fs')
 
 const loadDB = async () => {
     await connectDB();
@@ -26,7 +26,7 @@ export async function GET(request){
    
 }
 
-// API End point for uploading Blogs
+// API Endpoint for uploading Blogs
 export async function POST(req){
     const formData = await req.formData();
     const createdAt = Date.now();
@@ -51,4 +51,15 @@ export async function POST(req){
     console.log("Blog saved")
     
     return NextResponse.json({success : true, msg : "Blog Added"})
+}
+
+// API Endpoints to delete blogs
+
+export async function DELETE(req){
+    const id = await req.nextUrl.searchParams.get('id');
+    const blog = await blogModel.findById(id);
+    fs.unlink(`./public${blog.image}`, ()=>{});
+    await blogModel.findByIdAndDelete(id);
+
+    return NextResponse.json({msg : "Blog Deleted"});
 }
