@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { assets } from '../../../../public/assets'
 import axios from 'axios'
 import { toast } from 'react-toastify'
+// import i from '../../../../public/author_img.png'
 
 const page = () => {
 
@@ -13,7 +14,7 @@ const page = () => {
     description: "",
     category : "Startup",
     author : "Alex Bennett",
-    authorImg : "/author_img.png"
+    authorImg : "/authorImg.png"
 
   });
 
@@ -36,6 +37,7 @@ const page = () => {
 
     const res = await axios.post('/api/blog', formData);
     if(res.data.success){
+      // console.log("success")
       toast.success(res.data.msg);
       setImage(false);
       setData({
@@ -43,13 +45,14 @@ const page = () => {
         description: "",
         category : "Startup",
         author : "Alex Bennett",
-        authorImg : "/author_img.png"
+        authorImg : "/authorImg.png"
     
       });
 
     }
     else{
       toast.error("Error")
+      // console.log('failed')
     }
   }
    
@@ -61,6 +64,8 @@ const page = () => {
         <label htmlFor='image'>
           <Image className='mt-4' src={!image ? assets.upload_area : URL.createObjectURL(image)} alt='' width={140} height={70} />
         </label>
+
+
         <input onChange={(e) => setImage(e.target.files[0])} type='file' id='image' hidden required />
  
         <p className='text-xl mt-4'>Blog Title</p>

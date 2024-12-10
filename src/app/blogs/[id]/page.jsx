@@ -4,20 +4,33 @@ import { assets, blog_data } from '../../../../public/assets';
 import Image from 'next/image';
 import Footer from '@/Components/Footer';
 import Link from 'next/link';
+import axios from 'axios';
 
 function page({params}) {
 
     const [data,setData] = useState(null); // 1st we are saving the data in this state
 
-    const fetchBlogData = () =>{
-        for(let i=0; i<blog_data.length; i++){
-            if(Number(params.id) === blog_data[i].id){  // params.id is string and blog[i].id is number
-                setData(blog_data[i]);
-                // break;
-                console.log(blog_data[i]);
-                break;
-            }
-        }
+    const fetchBlogData = async () =>{
+        // for(let i=0; i<blog_data.length; i++){
+        //     if(Number(params.id) === blog_data[i].id){  // params.id is string and blog[i].id is number
+        //         setData(blog_data[i]);
+        //         // break;
+        //         console.log(blog_data[i]);
+        //         break;
+        //     }
+        // }
+
+        const resolvedParams = await params; // Resolve params if it's a Promise
+
+        const response = await axios.get('/api/blog', {
+            params :{
+                // id:params.id
+                id:resolvedParams.id,
+            },
+        })
+
+        setData(response.data);
+        
     }
 
     // whenever cponent gets loaded this fetch function will execute , so using useEffect
@@ -38,7 +51,7 @@ function page({params}) {
         </div>
         <div className='text-center my-24'>
             <h1 className='text-2xl sm:text-5xl font-semibold max-w-[700px] mx-auto'>{data.title}</h1>
-            <Image className='mx-auto mt-6 border border-white rounded-full' src={data.author_img} alt='' width={60} height={60} />
+            <Image className='mx-auto mt-6 border border-white rounded-full' src={data.authorImg} alt='' width={60} height={60} />
             <p className='mt-1 pb-2 text-lg max-w-[740px] mx-auto '>{data.author}</p>
         </div>
     </div>
