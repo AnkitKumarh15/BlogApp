@@ -11,7 +11,7 @@ const loadDB = async () => {
 
 loadDB();
 
-// API endpoints to get all blogs
+// API endpoints to get all blogs from db
 export async function GET(request){
 
     const blogId = request.nextUrl.searchParams.get("id");
@@ -26,7 +26,7 @@ export async function GET(request){
    
 }
 
-// API Endpoint for uploading Blogs
+// API Endpoint for uploading Blogs to db
 export async function POST(req){
     const formData = await req.formData();
     const createdAt = Date.now();
@@ -47,6 +47,7 @@ export async function POST(req){
         authorImg : `${formData.get('authorImg')}`
     }
 
+    // save blog in db
     await blogModel.create(blogData);
     // console.log("Blog saved")
     
