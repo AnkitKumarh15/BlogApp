@@ -1,4 +1,4 @@
-import Sidebar from "@/Components/adminComponents/sidebar"
+import Sidebar from "@/Components/adminComponents/Sidebar"
 import Image from 'next/image'
 import { assets } from "../../../public/assets"
 
