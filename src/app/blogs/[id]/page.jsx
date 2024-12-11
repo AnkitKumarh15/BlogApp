@@ -6,7 +6,7 @@ import Footer from '@/Components/Footer';
 import Link from 'next/link';
 import axios from 'axios';
 
-function page({params}) {
+function Page({params}) {
 
     const [data,setData] = useState(null); // 1st we are saving the data in this state
 
@@ -78,4 +78,4 @@ function page({params}) {
   )
 }
 
-export default page
+export default Page
