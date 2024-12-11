@@ -22,7 +22,7 @@ const page = () => {
     const name = event.target.name;
     const value = event.target.value;
     setData(data => ({...data, [name]:value})); 
-    console.log(data);
+    // console.log(data);
   }
 
   const onSubmitHandler = async (e) =>{
@@ -62,7 +62,7 @@ const page = () => {
       <form onSubmit={onSubmitHandler} className='pt-5 px-5 sm:pt-12 sm:pl-16'>
         <p className='text-xl'>Upload Thumbnail</p>
         <label htmlFor='image'>
-          <Image className='mt-4' src={!image ? assets.upload_area : URL.createObjectURL(image)} alt='' width={140} height={70} />
+          <Image className='mt-4' src={!image ? assets.upload_area : URL.createObjectURL(image)} alt='' width={140} height={70}  />
         </label>
 
 
